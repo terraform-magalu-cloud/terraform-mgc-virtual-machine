@@ -9,7 +9,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.18.10 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.6.1 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -19,7 +19,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [mgc_block-storage_volumes.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/block-storage_volumes) | resource |
 | [mgc_virtual-machine_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/virtual-machine_instances) | resource |
 | [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
 | [random_string.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
@@ -29,7 +28,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | value | `string` | n/a | yes |
-| <a name="input_additional_disk"></a> [additional\_disk](#input\_additional\_disk) | value | `any` | `{}` | no |
+| <a name="input_additional_disk"></a> [additional\_disk](#input\_additional\_disk) | value | `list(any)` | `[]` | no |
 | <a name="input_associate_public_ip"></a> [associate\_public\_ip](#input\_associate\_public\_ip) | value | `bool` | `true` | no |
 | <a name="input_create"></a> [create](#input\_create) | value | `bool` | `true` | no |
 | <a name="input_delete_public_ip_on_destroy"></a> [delete\_public\_ip\_on\_destroy](#input\_delete\_public\_ip\_on\_destroy) | value | `bool` | `true` | no |

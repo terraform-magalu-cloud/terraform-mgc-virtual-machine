@@ -12,11 +12,11 @@ terraform {
 }
 
 module "instance" {
-source = "../"
-name = "minha_vm"
-ssh_key_name = "key-opensuse"
+  source       = "../"
+  name         = "minha_vm"
+  ssh_key_name = "key-opensuse"
 }
 
 output "id" {
-    value = module.instance.instance_id
+  value = module.instance.instance_id
 }

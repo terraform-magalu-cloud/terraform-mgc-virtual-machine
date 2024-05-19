@@ -34,11 +34,11 @@ resource "mgc_virtual-machine_instances" "this" {
   user_data = length(var.user_data) > 0 ? var.user_data : null
 }
 
-resource "mgc_block-storage_volumes" "this" {
-  for_each = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
-  name  = each.value.name
-  size  = each.value.size
-  type  = {
-    name = each.value.type
-  }
-}
+# resource "mgc_block-storage_volumes" "this" {
+#   for_each = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
+#   name  = each.value.name
+#   size  = each.value.size
+#   type  = {
+#     name = each.value.type
+#   }
+# }
