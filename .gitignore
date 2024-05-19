@@ -4,7 +4,8 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
-
+.idea/**
+*.terraform*
 # Crash log files
 crash.log
 crash.*.log
