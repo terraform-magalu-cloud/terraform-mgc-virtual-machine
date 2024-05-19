@@ -9,7 +9,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.18.10 |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.6.1 |
 
 ## Modules
 
