@@ -55,6 +55,6 @@ variable "associate_public_ip" {
 
 variable "additional_disk" {
   description = "value"
-  default     = []
-  type        = list(any)
+  default     = {}
+  type        = any
 }

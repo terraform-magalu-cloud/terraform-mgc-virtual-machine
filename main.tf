@@ -34,11 +34,25 @@ resource "mgc_virtual-machine_instances" "this" {
   user_data = length(var.user_data) > 0 ? var.user_data : null
 }
 
-# resource "mgc_block-storage_volumes" "this" {
-#   for_each = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
-#   name  = each.value.name
-#   size  = each.value.size
-#   type  = {
-#     name = each.value.type
-#   }
-# }
+resource "mgc_block-storage_volumes" "this" {
+  for_each = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
+  name     = "${mgc_virtual-machine_instances.this[0].current_name}-${each.value.name}"
+  size     = each.value.size
+  type = {
+    name = each.value.type
+  }
+}
+
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [mgc_block-storage_volumes.this]
+
+  create_duration  = "30s"
+  destroy_duration = "30s"
+}
+
+resource "mgc_block-storage_volume-attachment" "this" {
+  depends_on         = [time_sleep.wait_30_seconds, mgc_block-storage_volumes.this, mgc_virtual-machine_instances.this]
+  for_each           = var.create && length(var.additional_disk) > 0 ? var.additional_disk : []
+  virtual_machine_id = mgc_virtual-machine_instances.this[0].id
+  block_storage_id   = mgc_block-storage_volumes.this[each.key].id
+}
