@@ -2,7 +2,10 @@
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
 | <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | 0.18.10 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.1 |
 
 ## Providers
 
@@ -23,9 +26,9 @@ No modules.
 | [mgc_block-storage_volume-attachment.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/block-storage_volume-attachment) | resource |
 | [mgc_block-storage_volumes.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/block-storage_volumes) | resource |
 | [mgc_virtual-machine_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/virtual-machine_instances) | resource |
-| [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
-| [random_string.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
-| [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/pet) | resource |
+| [random_string.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/string) | resource |
+| [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/0.11.1/docs/resources/sleep) | resource |
 
 ## Inputs
 
