@@ -1,24 +1,24 @@
 
 variable "user_data" {
-  description = "value"
+  description = "Shell script text file"
   default     = ""
   type        = string
 }
 
 variable "create" {
-  description = "value"
+  description = "Defines whether the virtual machine was created or not"
   default     = true
   type        = bool
 }
 
 variable "name" {
-  description = "value"
+  description = "Defines the name of the virtual machine and must be unique"
   default     = ""
   type        = string
 }
 
 variable "ssh_key_name" {
-  description = "value"
+  description = "Name of the registered public key"
   type        = string
 }
 
@@ -30,31 +30,31 @@ variable "image_name" {
 
 
 variable "machine_type_name" {
-  description = "value"
+  description = "Name of the image to use to create the virtual machine"
   default     = "cloud-bs1.small"
   type        = string
 }
 
 variable "network_name" {
-  description = "value"
+  description = "Name of the VPC where the virtual machine will run"
   default     = "vpc_default"
   type        = string
 }
 
 variable "delete_public_ip_on_destroy" {
-  description = "value"
+  description = "Defines whether the created public ip should be deleted when the virtual machine is deleted"
   default     = true
   type        = bool
 }
 
 variable "associate_public_ip" {
-  description = "value"
+  description = "Defines whether the public IP should be created and attached to the virtual machine"
   default     = true
   type        = bool
 }
 
 variable "additional_disk" {
-  description = "value"
+  description = "Disks that will be additionally attached to the virtual machine, the structure is a map of maps"
   default     = {}
   type        = any
 }
