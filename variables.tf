@@ -24,7 +24,7 @@ variable "ssh_key_name" {
 
 variable "image_name" {
   description = "value"
-  default     = "cloud-debian-12 LTS"
+  default     = "cloud-ubuntu-22.04 LTS"
   type        = string
 }
 

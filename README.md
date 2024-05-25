@@ -39,7 +39,7 @@ No modules.
 | <a name="input_associate_public_ip"></a> [associate\_public\_ip](#input\_associate\_public\_ip) | value | `bool` | `true` | no |
 | <a name="input_create"></a> [create](#input\_create) | value | `bool` | `true` | no |
 | <a name="input_delete_public_ip_on_destroy"></a> [delete\_public\_ip\_on\_destroy](#input\_delete\_public\_ip\_on\_destroy) | value | `bool` | `true` | no |
-| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | value | `string` | `"cloud-debian-12 LTS"` | no |
+| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | value | `string` | `"cloud-ubuntu-22.04 LTS"` | no |
 | <a name="input_machine_type_name"></a> [machine\_type\_name](#input\_machine\_type\_name) | value | `string` | `"cloud-bs1.small"` | no |
 | <a name="input_name"></a> [name](#input\_name) | value | `string` | `""` | no |
 | <a name="input_network_name"></a> [network\_name](#input\_network\_name) | value | `string` | `"vpc_default"` | no |
