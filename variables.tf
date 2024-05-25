@@ -1,4 +1,3 @@
-
 variable "user_data" {
   description = "Shell script text file"
   default     = ""
