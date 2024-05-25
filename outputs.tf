@@ -43,3 +43,13 @@ output "current_image_id" {
   description = "value"
   value       = resource.mgc_virtual-machine_instances.this[0].current_image.id
 }
+
+output "associate_public_ip" {
+  description = "value"
+  value       = resource.mgc_virtual-machine_instances.this[0].network.associate_public_ip
+}
+
+output "vpc" {
+  description = "value"
+  value       = resource.mgc_virtual-machine_instances.this[0].network.vpc
+}

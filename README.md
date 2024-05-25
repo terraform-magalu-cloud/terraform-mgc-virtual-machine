@@ -49,6 +49,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_associate_public_ip"></a> [associate\_public\_ip](#output\_associate\_public\_ip) | value |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | value |
 | <a name="output_current_image_id"></a> [current\_image\_id](#output\_current\_image\_id) | value |
 | <a name="output_current_machine_type_id"></a> [current\_machine\_type\_id](#output\_current\_machine\_type\_id) | value |
@@ -58,3 +59,4 @@ No modules.
 | <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | value |
 | <a name="output_status"></a> [status](#output\_status) | value |
 | <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | value |
+| <a name="output_vpc"></a> [vpc](#output\_vpc) | value |
