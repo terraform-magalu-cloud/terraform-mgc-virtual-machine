@@ -39,8 +39,8 @@ No modules.
 | <a name="input_associate_public_ip"></a> [associate\_public\_ip](#input\_associate\_public\_ip) | Defines whether the public IP should be created and attached to the virtual machine | `bool` | `true` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether the virtual machine was created or not | `bool` | `true` | no |
 | <a name="input_delete_public_ip_on_destroy"></a> [delete\_public\_ip\_on\_destroy](#input\_delete\_public\_ip\_on\_destroy) | Defines whether the created public ip should be deleted when the virtual machine is deleted | `bool` | `true` | no |
-| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | value | `string` | `"cloud-ubuntu-22.04 LTS"` | no |
-| <a name="input_machine_type_name"></a> [machine\_type\_name](#input\_machine\_type\_name) | Name of the image to use to create the virtual machine | `string` | `"cloud-bs1.small"` | no |
+| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | Name of the image to use to create the virtual machine | `string` | `"cloud-ubuntu-22.04 LTS"` | no |
+| <a name="input_machine_type_name"></a> [machine\_type\_name](#input\_machine\_type\_name) | Name of the type to use to create the virtual machine, same that instance type aws | `string` | `"cloud-bs1.small"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Defines the name of the virtual machine and must be unique | `string` | `""` | no |
 | <a name="input_network_name"></a> [network\_name](#input\_network\_name) | Name of the VPC where the virtual machine will run | `string` | `"vpc_default"` | no |
 | <a name="input_user_data"></a> [user\_data](#input\_user\_data) | Shell script text file | `string` | `""` | no |

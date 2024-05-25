@@ -23,14 +23,14 @@ variable "ssh_key_name" {
 }
 
 variable "image_name" {
-  description = "value"
+  description = "Name of the image to use to create the virtual machine"
   default     = "cloud-ubuntu-22.04 LTS"
   type        = string
 }
 
 
 variable "machine_type_name" {
-  description = "Name of the image to use to create the virtual machine"
+  description = "Name of the type to use to create the virtual machine, same that instance type aws"
   default     = "cloud-bs1.small"
   type        = string
 }
