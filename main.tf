@@ -40,18 +40,18 @@ resource "mgc_block-storage_volumes" "this" {
   }
 }
 
-resource "time_sleep" "wait_10_seconds" {
+resource "time_sleep" "wait_30_seconds" {
   depends_on = [mgc_virtual-machine_instances.this, mgc_block-storage_volumes.this]
 
-  create_duration  = "10s"
-  destroy_duration = "10s"
+  create_duration  = "30s"
+  destroy_duration = "30s"
   triggers = {
     id = timestamp()
   }
 }
 
 resource "mgc_block-storage_volume-attachment" "this" {
-  depends_on         = [time_sleep.wait_10_seconds, mgc_virtual-machine_instances.this]
+  depends_on         = [time_sleep.wait_30_seconds, mgc_virtual-machine_instances.this]
   for_each           = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
   virtual_machine_id = mgc_virtual-machine_instances.this[0].id
   block_storage_id   = mgc_block-storage_volumes.this[each.key].id
