@@ -34,7 +34,7 @@ No modules.
 | [mgc_virtual-machine_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/virtual-machine_instances) | resource |
 | [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/pet) | resource |
 | [random_string.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/string) | resource |
-| [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/0.11.1/docs/resources/sleep) | resource |
+| [time_sleep.wait_10_seconds](https://registry.terraform.io/providers/hashicorp/time/0.11.1/docs/resources/sleep) | resource |
 
 ## Inputs
 
