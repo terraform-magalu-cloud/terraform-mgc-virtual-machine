@@ -1,7 +1,3 @@
-provider "mgc" {
-  region = "br-ne1"
-}
-
 resource "random_string" "this" {
   count   = length(var.name) > 0 ? 0 : 1
   length  = 8
@@ -38,9 +34,9 @@ resource "mgc_block-storage_volumes" "this" {
   depends_on = [mgc_virtual-machine_instances.this]
   for_each   = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
   name       = "${mgc_virtual-machine_instances.this[0].current_name}-${each.value.name}"
-  size       = each.value.size
+  size       = try(each.value.size, null)
   type = {
-    name = each.value.type
+    name = try(each.value.type, null)
   }
 }
 
@@ -55,7 +51,7 @@ resource "time_sleep" "wait_30_seconds" {
 }
 
 resource "mgc_block-storage_volume-attachment" "this" {
-  depends_on         = [time_sleep.wait_30_seconds, mgc_block-storage_volumes.this, mgc_virtual-machine_instances.this]
+  depends_on         = [time_sleep.wait_30_seconds, mgc_virtual-machine_instances.this]
   for_each           = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
   virtual_machine_id = mgc_virtual-machine_instances.this[0].id
   block_storage_id   = mgc_block-storage_volumes.this[each.key].id
