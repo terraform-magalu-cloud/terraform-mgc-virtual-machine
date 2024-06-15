@@ -42,6 +42,7 @@ resource "mgc_block-storage_volumes" "this" {
 
 resource "time_sleep" "wait_30_seconds" {
   depends_on = [mgc_virtual-machine_instances.this, mgc_block-storage_volumes.this]
+  count      = var.create ? 1 : 0
 
   create_duration  = "30s"
   destroy_duration = "30s"
