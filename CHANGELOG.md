@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.0.3...v1.1.0) (2024-06-15)
+
+
+### Features
+
+* add create in time_sleep, avoid create when unecessary ([dbf0a68](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/commit/dbf0a684e86967fc189e3da5bc5b0671036f0060))
+
 ## [1.0.3](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.0.2...v1.0.3) (2024-06-15)
 
 
