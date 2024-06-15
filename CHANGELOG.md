@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.0.2...v1.0.3) (2024-06-15)
+
+
+### Features
+
+* adjust wait_30_seconds ([94e081e](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/commit/94e081e22bc2ec576e39f4f3af415d9a9b4d0321))
+* clean code harded and input try to ensure code ([18b82f9](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/commit/18b82f97cfb8295c9b2c108c45b4c3cd8565eb88))
+
+
+### Bug Fixes
+
+* The given key does not identify an element in this collection ([f9ae629](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/commit/f9ae629107191a460039dec617cae52f6510da6c))
+
 ## [1.0.2](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.0.1...v1.0.2) (2024-05-25)
 
 
