@@ -1,5 +1,5 @@
 variable "name" {
   description = "name this machine"
-  default     = "minha_vm"
+  default     = "example-vm"
   type        = string
 }
