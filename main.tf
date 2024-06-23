@@ -34,9 +34,9 @@ resource "mgc_block-storage_volumes" "this" {
   depends_on = [mgc_virtual-machine_instances.this]
   for_each   = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
   name       = "${mgc_virtual-machine_instances.this[0].current_name}-${each.value.name}"
-  size       = try(each.value.size, null)
+  size       = try(each.value.size, 10)
   type = {
-    name = try(each.value.type, null)
+    name = try(each.value.type, "cloud_nvme5k")
   }
 }
 
@@ -47,13 +47,16 @@ resource "time_sleep" "wait_30_seconds" {
   create_duration  = "30s"
   destroy_duration = "30s"
   triggers = {
-    id = timestamp()
+    volume_qtd = length(var.additional_disk)
   }
 }
 
 resource "mgc_block-storage_volume-attachment" "this" {
-  depends_on         = [time_sleep.wait_30_seconds, mgc_virtual-machine_instances.this]
+  depends_on         = [mgc_virtual-machine_instances.this, mgc_block-storage_volumes.this, time_sleep.wait_30_seconds]
   for_each           = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
   virtual_machine_id = mgc_virtual-machine_instances.this[0].id
   block_storage_id   = mgc_block-storage_volumes.this[each.key].id
+  lifecycle {
+    create_before_destroy = true
+  }
 }
