@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.1.0...v1.2.0) (2024-06-23)
+
+
+### Features
+
+* improv example ([08f09c0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/commit/08f09c0f360804a03c28d3de88b80d298a6f2a63))
+* improv time sleep and try values ([27baff1](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/commit/27baff105c26ea59395b37b8a2b0f3ac2de5dfeb))
+
 ## [1.1.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.0.3...v1.1.0) (2024-06-15)
 
 
