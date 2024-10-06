@@ -1,9 +1,3 @@
-variable "user_data" {
-  description = "Shell script text file"
-  default     = ""
-  type        = string
-}
-
 variable "create" {
   description = "Defines whether the virtual machine was created or not"
   default     = true
@@ -16,9 +10,24 @@ variable "name" {
   type        = string
 }
 
+variable "name_is_prefix" {
+  description = "Use name prefix"
+  type        = bool
+  default     = false
+
+}
+
+variable "ssh_key_create" {
+  description = "Create ssh key with instance"
+  type        = bool
+  default     = false
+
+}
+
 variable "ssh_key_name" {
   description = "Name of the registered public key"
   type        = string
+  default     = ""
 }
 
 variable "image_name" {
