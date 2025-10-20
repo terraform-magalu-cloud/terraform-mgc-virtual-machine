@@ -2,70 +2,103 @@ name: Notify Telegram on Release
 
 on:
   release:
-    types: [published]
+    types: [published]  # dispara quando uma release é publicada
 
 jobs:
-  notify-telegram:
+  notify:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Send message to Telegram
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Create and run Telegram notification script
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
-          RELEASE_URL: ${{ github.event.release.html_url }}
-          RELEASE_NAME: ${{ github.event.release.name }}
+          REPOSITORY: ${{ github.repository }}
         run: |
-          /usr/bin/bash -e 
-          if [ -z $RELEASE_TAG ]; then
-          cat << EOF > sendMsg.py
-          import os
-          import requests
-          import time
+          cat <<'EOF' > send_release_telegram.py
+          # Enviar mensagem Markdown para o Telegram com informações da release do GitHub
 
-          # Variáveis de ambiente
+          import requests
+          import re
+          import os
+
           BOT_TOKEN = os.getenv("TELEGRAM_TOKEN")
           CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
           REPO = os.getenv("REPOSITORY")  # Formato: usuario/repositorio
 
-          if not BOT_TOKEN or not CHAT_ID or not REPO:
-              raise ValueError("As variáveis TELEGRAM_TOKEN, TELEGRAM_CHAT_ID e GITHUB_REPOSITORY precisam estar definidas.")
+          # =======================
+          # FUNÇÃO PARA ESCAPAR MARKDOWN
+          # =======================
+          def escape_markdown(text):
+              """
+              Escapa todos os caracteres especiais exigidos pelo Telegram MarkdownV2.
+              """
+              if not text:
+                  return ""
+              escape_chars = r'_*[]()~`>#+-=|{}.!'
+              return re.sub(f'([{re.escape(escape_chars)}])', r'\\\1', text)
 
-          # Pega a última release via GitHub API
-          gh_api_url = f"https://api.github.com/repos/{REPO}/releases/latest"
-          gh_response = requests.get(gh_api_url)
+          # =======================
+          # OBTÉM A ÚLTIMA RELEASE
+          # =======================
+          release_url = f"https://api.github.com/repos/{REPO}/releases/latest"
+          response = requests.get(release_url)
+          release = response.json()
 
-          if gh_response.status_code != 200:
-              raise Exception(f"Erro ao buscar release do GitHub: {gh_response.status_code}")
+          # =======================
+          # EXTRAI DADOS
+          # =======================
+          tag = release.get("tag_name", "N/A")
+          name = release.get("name", "")
+          body = release.get("body", "Sem changelog.")
+          url = release.get("html_url", "")
+          body = escape_markdown(body[:1000])  # limita texto e escapa caracteres
+          published = escape_markdown(release.get("published_at", "https://github.com"))
+          published = published.replace("\\","")
+          data = published.split("T")
+          hora = data[1]
+          data = data[0].split("-")
+          print("Data: {}-{}-{} às {}".format(data[2],data[1],data[0],hora))
+          data = "{}-{}-{} às {}".format(data[2],data[1],data[0],hora)
+          published_at = "{}".format(data)
 
-          release = gh_response.json()
-          tag = release["tag_name"]
-          name = release["name"]
-          description = release.get("body", "(sem descrição)")
-          html_url = release["html_url"]
-          time.sleep(10)
-          # Mensagem estilizada
-          MESSAGE = f"""🎉 *Nova Release Publicada!*
+          # =======================
+          # MENSAGEM MARKDOWN
+          # =======================
+          message = f"""
+          🚀 *Nova Release Disponível*
+          *Repositório:* `{escape_markdown(REPO)}`
+          *Versão:* `{escape_markdown(tag)}`
+          *Publicado::* {escape_markdown(published_at)}
+          🔗 [Ver no GitHub]({escape_markdown(url)})
 
-          🏷️ *{name}* (`{tag}`)
-
-          📝 {description}
-
-          🔗 [Ver no GitHub]({html_url})
+          📜 *Changelog:*
+          {body}
           """
 
-          # Envia para o Telegram
-          url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+          # =======================
+          # ENVIA PARA O TELEGRAM
+          # =======================
+          telegram_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
           payload = {
               "chat_id": CHAT_ID,
-              "text": MESSAGE,
-              "parse_mode": "Markdown",
-              "disable_web_page_preview": False,
+              "text": message,
+              "parse_mode": "MarkdownV2"
           }
 
-          response = requests.post(url, data=payload)
-          print("Status:", response.status_code)
-          print("Resposta:", response.json())
+          resp = requests.post(telegram_url, json=payload)
+          if resp.status_code == 200:
+              print("Mensagem enviada com sucesso!")
+          else:
+              print(f"Erro ao enviar mensagem: {resp.text}")
           EOF
 
-          python sendMsg.py
+          python send_release_telegram.py
