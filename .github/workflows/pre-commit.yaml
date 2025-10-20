@@ -1,99 +1,51 @@
-name: Pre-Commit
+# .github/workflows/pre-commit.yml
+name: Pre-Commit Checks
 
 on:
-  pull_request:
+  pull_request: # Roda em cada Pull Request para garantir que o código que entra está limpo
     branches:
-      - main
-      - master
-
-env:
-  TERRAFORM_DOCS_VERSION: v0.16.0
-  TFLINT_VERSION: v0.50.3
+      - master # Ou a branch principal do seu repositório, por exemplo, 'master'
+  workflow_dispatch: # Permite disparar o workflow manualmente
 
 jobs:
-  collectInputs:
-    name: Collect workflow inputs
+  pre-commit:
     runs-on: ubuntu-latest
-    outputs:
-      directories: ${{ steps.dirs.outputs.directories }}
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Get root directories
-        id: dirs
-        uses: clowdhaus/terraform-composite-actions/directories@v1.9.0
-
-  preCommitMinVersions:
-    name: Min TF pre-commit
-    needs: collectInputs
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        directory: ${{ fromJson(needs.collectInputs.outputs.directories) }}
-    steps:
-      # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
-      - name: Delete huge unnecessary tools folder
-        run: |
-          rm -rf /opt/hostedtoolcache/CodeQL
-          rm -rf /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk
-          rm -rf /opt/hostedtoolcache/Ruby
-          rm -rf /opt/hostedtoolcache/go
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Terraform min/max versions
-        id: minMax
-        uses: clowdhaus/terraform-min-max@v1.3.0
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          directory: ${{ matrix.directory }}
+          python-version: "3.11" # Use uma versão recente do Python
 
-      - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
-        # Run only validate pre-commit check on min version supported
-        if: ${{ matrix.directory !=  '.' }}
-        uses: clowdhaus/terraform-composite-actions/pre-commit@v1.9.0
+      - name: Install pre-commit
+        run: pip install pre-commit # Instala a ferramenta pre-commit
+
+      - name: Install Terraform (for terraform_fmt, terraform_validate, tflint, terraform_docs hooks)
+        uses: hashicorp/setup-terraform@v2
         with:
-          terraform-version: ${{ steps.minMax.outputs.minVersion }}
-          tflint-version: ${{ env.TFLINT_VERSION }}
-          args: 'terraform_validate --color=always --show-diff-on-failure --files ${{ matrix.directory }}/*'
+          terraform_version: 1.5.0 # Defina sua versão específica do Terraform, ex: '1.5.0'
+          # terraform_version: latest # Use 'latest' com cautela em produção.
 
-      - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
-        # Run only validate pre-commit check on min version supported
-        if: ${{ matrix.directory ==  '.' }}
-        uses: clowdhaus/terraform-composite-actions/pre-commit@v1.9.0
-        with:
-          terraform-version: ${{ steps.minMax.outputs.minVersion }}
-          tflint-version: ${{ env.TFLINT_VERSION }}
-          args: 'terraform_validate --color=always --show-diff-on-failure --files $(ls *.tf)'
+      #- name: Install Checkov (for terraform_checkov hook)
+        # Checkov é uma ferramenta Python, então pip pode instalá-la.
+        # O hook do pre-commit-terraform geralmente o instala, mas uma instalação explícita garante.
+        #run: pip install checkov
 
-  preCommitMaxVersion:
-    name: Max TF pre-commit
-    runs-on: ubuntu-latest
-    needs: collectInputs
-    steps:
-      # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
-      - name: Delete huge unnecessary tools folder
-        run: |
-          rm -rf /opt/hostedtoolcache/CodeQL
-          rm -rf /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk
-          rm -rf /opt/hostedtoolcache/Ruby
-          rm -rf /opt/hostedtoolcache/go
+      # Instalação de tflint e terraform-docs estão comentadas por padrão,
+      # pois o hook 'antonbabenko/pre-commit-terraform' geralmente lida com isso.
+      # Descomente e adapte se encontrar problemas de ferramentas não encontradas.
+      # - name: Install tflint (if needed)
+      #   run: |
+      #     curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      #     tflint --version
+      # - name: Install terraform-docs (if needed)
+      #   run: |
+      #     wget https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz
+      #     tar -xzf terraform-docs-v0.16.0-linux-amd64.tar.gz
+      #     sudo mv terraform-docs /usr/local/bin/
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-
-      - name: Terraform min/max versions
-        id: minMax
-        uses: clowdhaus/terraform-min-max@v1.3.0
-
-      - name: Pre-commit Terraform ${{ steps.minMax.outputs.maxVersion }}
-        uses: clowdhaus/terraform-composite-actions/pre-commit@v1.9.0
-        with:
-          terraform-version: ${{ steps.minMax.outputs.maxVersion }}
-          tflint-version: ${{ env.TFLINT_VERSION }}
-          terraform-docs-version: ${{ env.TERRAFORM_DOCS_VERSION }}
-          install-hcledit: true
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files # Executa todos os hooks em todos os arquivos
