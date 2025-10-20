@@ -1,0 +1,89 @@
+name: Terraform MGC Issue
+description: Reportar problemas ou solicitar alterações para o provider MagaluCloud MGC
+title: "[mgc] "
+labels: ["terraform", "mgc", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 Descrição do Problema / Solicitação
+        Explique de forma clara o problema ou a solicitação relacionada ao provider [MagaluCloud MGC](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs).
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição detalhada
+      placeholder: >
+        Exemplo: Ao criar um recurso `mgc_network`, o módulo falha com erro de validação de CIDR.
+      required: true
+
+  - type: dropdown
+    id: type_of_change
+    attributes:
+      label: Tipo de Mudança
+      description: Selecione o tipo de alteração relacionada a este issue
+      options:
+        - Bug
+        - Feature / Nova funcionalidade
+        - Melhorias / Refatoração
+        - Documentação
+      required: true
+
+  - type: input
+    id: terraform_version
+    attributes:
+      label: Versão do Terraform utilizada
+      placeholder: "Ex: 1.6.0"
+      required: true
+
+  - type: input
+    id: mgc_provider_version
+    attributes:
+      label: Versão do provider MGC
+      placeholder: "Ex: 1.0.0"
+      required: true
+
+  - type: textarea
+    id: resource_or_module
+    attributes:
+      label: Recurso ou módulo afetado
+      placeholder: "Ex: mgc_network, mgc_instance"
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Passos para reproduzir / exemplo de uso
+      placeholder: |
+        1. Criar workspace staging
+        2. Aplicar recurso `mgc_network` com variáveis X, Y, Z
+        3. Executar `terraform apply`
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Comportamento esperado
+      placeholder: "Descreva o que você esperava que acontecesse"
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Comportamento atual
+      placeholder: "Descreva o que aconteceu de fato"
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Informações adicionais / logs / outputs
+      description: "Adicione logs, outputs de `terraform plan`/`apply` ou prints de tela"
+      placeholder: |
+        terraform plan:
+        ```
+        ...
+        ```
+      required: false
