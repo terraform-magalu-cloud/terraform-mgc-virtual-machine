@@ -8,44 +8,28 @@ on:
   workflow_dispatch: # Permite disparar o workflow manualmente
 
 jobs:
-  pre-commit:
+  terraform:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Install terraform-docs
+        run: |
+          curl -sSL https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64 -o /usr/local/bin/terraform-docs
+          chmod +x /usr/local/bin/terraform-docs
+
+      - name: Install tflint
+        run: |
+          curl -sSL https://github.com/terraform-linters/tflint/releases/download/v0.33.0/tflint_linux_amd64.zip -o tflint.zip
+          unzip tflint.zip
+          mv tflint /usr/local/bin/
+          chmod +x /usr/local/bin/tflint
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v2.0.0
         with:
-          python-version: "3.11" # Use uma versão recente do Python
-
-      - name: Install pre-commit
-        run: pip install pre-commit # Instala a ferramenta pre-commit
-
-      - name: Install Terraform (for terraform_fmt, terraform_validate, tflint, terraform_docs hooks)
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.0 # Defina sua versão específica do Terraform, ex: '1.5.0'
-          # terraform_version: latest # Use 'latest' com cautela em produção.
-
-      #- name: Install Checkov (for terraform_checkov hook)
-        # Checkov é uma ferramenta Python, então pip pode instalá-la.
-        # O hook do pre-commit-terraform geralmente o instala, mas uma instalação explícita garante.
-        #run: pip install checkov
-
-      # Instalação de tflint e terraform-docs estão comentadas por padrão,
-      # pois o hook 'antonbabenko/pre-commit-terraform' geralmente lida com isso.
-      # Descomente e adapte se encontrar problemas de ferramentas não encontradas.
-      # - name: Install tflint (if needed)
-      #   run: |
-      #     curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-      #     tflint --version
-      # - name: Install terraform-docs (if needed)
-      #   run: |
-      #     wget https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz
-      #     tar -xzf terraform-docs-v0.16.0-linux-amd64.tar.gz
-      #     sudo mv terraform-docs /usr/local/bin/
-
-      - name: Run pre-commit hooks
-        run: pre-commit run --all-files # Executa todos os hooks em todos os arquivos
+          extra_args: --all-files
