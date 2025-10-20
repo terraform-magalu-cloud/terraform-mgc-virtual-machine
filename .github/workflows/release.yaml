@@ -24,7 +24,7 @@ jobs:
           node-version: 20
 
       - name: Instalar semantic-release
-        run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/github @semantic-release/commit-analyzer @semantic-release/release-notes-generator
+        run: npm install --save-dev conventional-changelog-conventionalcommits
 
       - name: Rodar semantic-release
         env:
