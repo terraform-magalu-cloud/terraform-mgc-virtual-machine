@@ -4,7 +4,7 @@ name: Release Terraform Module
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - '**.tf'
       - '**.tfvars'
@@ -27,7 +27,7 @@ on:
       branch:
         description: 'Branch para rodar o release (ex: main)'
         required: true
-        default: 'main'
+        default: 'master'
         type: string
 
 jobs:
