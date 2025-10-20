@@ -10,7 +10,7 @@ This module was created and maintained by the community. If you want to help, se
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.2 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.27.1 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.37.4 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.1 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.6 |
@@ -20,7 +20,7 @@ This module was created and maintained by the community. If you want to help, se
 | Name | Version |
 |------|---------|
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.2 |
-| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.27.1 |
+| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.37.4 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.2 |
 | <a name="provider_time"></a> [time](#provider\_time) | 0.11.1 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
@@ -35,46 +35,62 @@ No modules.
 |------|------|
 | [local_file.ssh_key](https://registry.terraform.io/providers/hashicorp/local/2.5.2/docs/resources/file) | resource |
 | [local_sensitive_file.ssh_key](https://registry.terraform.io/providers/hashicorp/local/2.5.2/docs/resources/sensitive_file) | resource |
+| [mgc_block_storage_schedule.default_backup](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_schedule) | resource |
+| [mgc_block_storage_schedule_attach.default_backup](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_schedule_attach) | resource |
 | [mgc_block_storage_volume_attachment.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_volume_attachment) | resource |
 | [mgc_block_storage_volumes.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_volumes) | resource |
+| [mgc_network_public_ips.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_public_ips) | resource |
+| [mgc_network_public_ips_attach.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_public_ips_attach) | resource |
+| [mgc_network_security_groups_attach.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_security_groups_attach) | resource |
 | [mgc_ssh_keys.ssh_key](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/ssh_keys) | resource |
 | [mgc_virtual_machine_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/virtual_machine_instances) | resource |
 | [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/pet) | resource |
 | [random_string.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/string) | resource |
 | [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/0.11.1/docs/resources/sleep) | resource |
 | [tls_private_key.ssh_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.6/docs/resources/private_key) | resource |
-| [mgc_virtual_machine_instance.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/virtual_machine_instance) | data source |
+| [mgc_network_security_groups.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/network_security_groups) | data source |
+| [mgc_network_vpcs.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/network_vpcs) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_disk"></a> [additional\_disk](#input\_additional\_disk) | Disks that will be additionally attached to the virtual machine, the structure is a map of maps | `any` | `{}` | no |
-| <a name="input_associate_public_ip"></a> [associate\_public\_ip](#input\_associate\_public\_ip) | Defines whether the public IP should be created and attached to the virtual machine | `bool` | `true` | no |
+| <a name="input_attach_public_ip"></a> [attach\_public\_ip](#input\_attach\_public\_ip) | Attach public ip | `bool` | `false` | no |
+| <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Zone where instance will be provisoned | `string` | `""` | no |
+| <a name="input_backup_enabled"></a> [backup\_enabled](#input\_backup\_enabled) | Enable backup | `bool` | `true` | no |
+| <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | Retention backup for days | `number` | `7` | no |
+| <a name="input_backup_schedule"></a> [backup\_schedule](#input\_backup\_schedule) | Schedule time backup | `string` | `"03:00:00"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether the virtual machine was created or not | `bool` | `true` | no |
-| <a name="input_delete_public_ip_on_destroy"></a> [delete\_public\_ip\_on\_destroy](#input\_delete\_public\_ip\_on\_destroy) | Defines whether the created public ip should be deleted when the virtual machine is deleted | `bool` | `true` | no |
-| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | Name of the image to use to create the virtual machine | `string` | `"cloud-ubuntu-22.04 LTS"` | no |
-| <a name="input_machine_type_name"></a> [machine\_type\_name](#input\_machine\_type\_name) | Name of the type to use to create the virtual machine, same that instance type aws | `string` | `"cloud-bs1.small"` | no |
+| <a name="input_disk_type"></a> [disk\_type](#input\_disk\_type) | Set type disk | `string` | `"cloud_nvme1k"` | no |
+| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | Name of the image to use to create the virtual machine | `string` | `"cloud-ubuntu-24.04 LTS"` | no |
+| <a name="input_machine_type_name"></a> [machine\_type\_name](#input\_machine\_type\_name) | Name of the type to use to create the virtual machine, same that instance type aws | `string` | `"BV1-1-10"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Defines the name of the virtual machine and must be unique | `string` | `""` | no |
-| <a name="input_name_is_prefix"></a> [name\_is\_prefix](#input\_name\_is\_prefix) | Use name prefix | `bool` | `false` | no |
-| <a name="input_network_name"></a> [network\_name](#input\_network\_name) | Name of the VPC where the virtual machine will run | `string` | `"vpc_default"` | no |
+| <a name="input_security_group_names"></a> [security\_group\_names](#input\_security\_group\_names) | Defines rules of security group: map of map | `list(string)` | `[]` | no |
 | <a name="input_ssh_key_create"></a> [ssh\_key\_create](#input\_ssh\_key\_create) | Create ssh key with instance | `bool` | `false` | no |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | Name of the registered public key | `string` | `""` | no |
+| <a name="input_user_data"></a> [user\_data](#input\_user\_data) | Setup virtual machine with user data | `string` | `""` | no |
+| <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | Set name vpc will use | `string` | `"vpc_default"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_associate_public_ip"></a> [associate\_public\_ip](#output\_associate\_public\_ip) | Boolean value, whether there is a public IP or not: true or false |
-| <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Timestamp of when the virtual machine was created |
-| <a name="output_id"></a> [id](#output\_id) | ID of the created virtual machine |
-| <a name="output_image_id"></a> [image\_id](#output\_image\_id) | Image ID of instance |
-| <a name="output_machine_type_id"></a> [machine\_type\_id](#output\_machine\_type\_id) | Machine type ID of instance |
-| <a name="output_name"></a> [name](#output\_name) | Virtual machine name |
-| <a name="output_private_ipv4"></a> [private\_ipv4](#output\_private\_ipv4) | Private IPV4 |
-| <a name="output_public_ipv4"></a> [public\_ipv4](#output\_public\_ipv4) | Public IPV4 |
-| <a name="output_public_ipv6"></a> [public\_ipv6](#output\_public\_ipv6) | Public IPV6 |
-| <a name="output_state"></a> [state](#output\_state) | State of instance |
-| <a name="output_status"></a> [status](#output\_status) | Status of the virtual machine created, running, stopped, etc. |
-| <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | Timestamp of last modified virtual machine |
-| <a name="output_vpc"></a> [vpc](#output\_vpc) | VPC being used by the virtual machine |
+| <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Creation date and time of the first virtual machine instance. |
+| <a name="output_id"></a> [id](#output\_id) | ID of the first created virtual machine instance. |
+| <a name="output_image_name"></a> [image\_name](#output\_image\_name) | Name of the first virtual machine instance. |
+| <a name="output_image_platform"></a> [image\_platform](#output\_image\_platform) | Name of the first virtual machine instance. |
+| <a name="output_interface_primary"></a> [interface\_primary](#output\_interface\_primary) | Inform whether the interface used is the primary one |
+| <a name="output_machine_type"></a> [machine\_type](#output\_machine\_type) | Name of the first virtual machine instance. |
+| <a name="output_name"></a> [name](#output\_name) | Name of the first virtual machine instance. |
+| <a name="output_network_interface"></a> [network\_interface](#output\_network\_interface) | ID of the first network interface of the first virtual machine instance. |
+| <a name="output_network_name"></a> [network\_name](#output\_network\_name) | Name of the first network interface of the first virtual machine instance |
+| <a name="output_private_ipv4"></a> [private\_ipv4](#output\_private\_ipv4) | Private IPv4 address of the first network interface of the first virtual machine instance. |
+| <a name="output_private_ipv6"></a> [private\_ipv6](#output\_private\_ipv6) | Private IPv6 address of the first network interface of the first virtual machine instance. |
+| <a name="output_private_key"></a> [private\_key](#output\_private\_key) | TLS private key of the first virtual machine instance. |
+| <a name="output_public_ipv4"></a> [public\_ipv4](#output\_public\_ipv4) | Public IPv4 address of the first network interface of the first virtual machine instance. |
+| <a name="output_public_key"></a> [public\_key](#output\_public\_key) | Public key of the first virtual machine instance. |
+| <a name="output_security_group_ids"></a> [security\_group\_ids](#output\_security\_group\_ids) | List of security group IDs associated with the first virtual machine instance. |
+| <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | List of security group IDs associated with the first virtual machine instance. |
+| <a name="output_ssh_key_name"></a> [ssh\_key\_name](#output\_ssh\_key\_name) | Name of the first virtual machine instance. |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the VPC used by the first virtual machine instance. |

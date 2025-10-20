@@ -2,7 +2,7 @@ terraform {
   required_providers {
     mgc = {
       source  = "MagaluCloud/mgc"
-      version = "~> 0.27.1"
+      version = "~> 0.37.4"
     }
     time = {
       source  = "hashicorp/time"
