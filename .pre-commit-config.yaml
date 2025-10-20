@@ -1,4 +1,19 @@
+# .pre-commit-config.yaml
 repos:
+  # Repositório para hooks genéricos do pre-commit
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: pretty-format-json
+
+  # Repositório para hooks específicos de Terraform
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.96.1
     hooks:
@@ -25,10 +40,3 @@ repos:
           - '--args=--only=terraform_workspace_remote'
           - '--args=--only=terraform_unused_required_providers'
       - id: terraform_validate
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
-    hooks:
-      - id: check-merge-conflict
-      - id: trailing-whitespace
-      - id: mixed-line-ending
-        args: [--fix=lf]
