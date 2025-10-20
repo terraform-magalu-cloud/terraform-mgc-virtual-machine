@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.3.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.2.0...v1.3.0) (2025-10-20)
+## [2.1.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v2.0.0...v2.1.0) (2025-10-20)
 
 
 ### Features
