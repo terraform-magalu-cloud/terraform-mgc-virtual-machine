@@ -1,12 +1,11 @@
-# .github/workflows/pre-commit.yml
-name: Pre-Commit Checks
+name: Pre-Commit
 
 on:
-  pull_request: # Roda em cada Pull Request para garantir que o código que entra está limpo
+  pull_request:
     branches:
-      - master # Ou a branch principal do seu repositório, por exemplo, 'master'
-  workflow_dispatch: # Permite disparar o workflow manualmente
-  
+      - main
+      - master
+
 env:
   TERRAFORM_DOCS_VERSION: v0.16.0
   TFLINT_VERSION: v0.50.3
