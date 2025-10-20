@@ -9,7 +9,7 @@ This module was created and maintained by the community. If you want to help, se
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.27.1 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.37.4 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 
 ## Providers
@@ -34,12 +34,10 @@ This module was created and maintained by the community. If you want to help, se
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_api_key"></a> [api\_key](#input\_api\_key) | The Magalu Cloud API Key | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | name this machine | `string` | `"example-simple"` | no |
+| <a name="input_region"></a> [region](#input\_region) | Regions Magalu Cloud | `string` | `"br-ne1"` | no |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | ID of the macine |
-| <a name="output_private_ipv4"></a> [private\_ipv4](#output\_private\_ipv4) | If machine has ip public, boolean |
-| <a name="output_public_ipv4"></a> [public\_ipv4](#output\_public\_ipv4) | If machine has ip public, boolean |
+No outputs.
