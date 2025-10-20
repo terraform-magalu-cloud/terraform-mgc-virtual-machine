@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.2.0...v1.3.0) (2025-10-20)
+
+
+### Features
+
+* upgrade version and add new feature - backup schedule ([01d6f95](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/commit/01d6f95c7a363cd7401ce74c75754434f369d087))
+
 ## [1.2.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v1.1.0...v1.2.0) (2024-06-23)
 
 
