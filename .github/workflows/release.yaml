@@ -1,32 +1,70 @@
-name: Release Terraform
+# .github/workflows/release.yml
+name: Release Terraform Module
 
 on:
   push:
     branches:
-      - master  # ou master, conforme sua branch padrão
+      - master
+    paths:
+      - '**.tf'
+      - '**.tfvars'
+      - '.terraform/**'
+      - '.github/workflows/release.yml'
+      - 'package.json'
+      # Adicione .releaserc.yaml e remova .releaserc.json e release.config.js se não forem usados
+      - '.releaserc.yaml'
+      # - '.releaserc.json' # Pode remover se não for usar
+      # - 'release.config.js' # Pode remover se não for usar
+      - 'LICENSE'
+  
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Executar em modo Dry Run (não publica, apenas simula a release)?'
+        required: false
+        default: 'true'
+        type: boolean
+      branch:
+        description: 'Branch para rodar o release (ex: master)'
+        required: true
+        default: 'master'
+        type: string
 
 jobs:
   release:
-    name: Gerar nova release semântica
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Instalar Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '18'
 
-      - name: Instalar semantic-release
-        run: npm install --save-dev conventional-changelog-conventionalcommits
+      - name: Install dependencies
+        run: |
+          npm ci
 
-      - name: Rodar semantic-release
+      - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run == 'true' || false }}
+        run: |
+          # O comando npx semantic-release não precisa ser alterado.
+          # Ele automaticamente procura por .releaserc.yaml (e outras opções)
+          if [ "${{ env.DRY_RUN }}" = "true" ]; then
+            echo "Running semantic-release in Dry Run mode..."
+            npx semantic-release --dry-run
+          else
+            echo "Running semantic-release..."
+            npx semantic-release
+          fi
