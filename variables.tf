@@ -1,7 +1,61 @@
+variable "additional_disk" {
+  description = "Disks that will be additionally attached to the virtual machine, the structure is a map of maps"
+  default     = {}
+  type        = any
+}
+
+variable "attach_public_ip" {
+  description = "Attach public ip"
+  type        = bool
+  default     = false
+}
+
+variable "availability_zone" {
+  description = "Zone where instance will be provisoned"
+  type        = string
+  default     = ""
+}
+
+variable "backup_enabled" {
+  description = "Enable backup"
+  type        = bool
+  default     = true
+}
+
+variable "backup_retention_days" {
+  description = "Retention backup for days"
+  type        = number
+  default     = 7
+}
+
+variable "backup_schedule" {
+  description = "Schedule time backup"
+  type        = string
+  default     = "03:00:00"
+}
+
 variable "create" {
   description = "Defines whether the virtual machine was created or not"
   default     = true
   type        = bool
+}
+
+variable "disk_type" {
+  description = "Set type disk"
+  default     = "cloud_nvme1k"
+  type        = string
+}
+
+variable "image_name" {
+  description = "Name of the image to use to create the virtual machine"
+  default     = "cloud-ubuntu-24.04 LTS"
+  type        = string
+}
+
+variable "machine_type_name" {
+  description = "Name of the type to use to create the virtual machine, same that instance type aws"
+  default     = "BV1-1-10"
+  type        = string
 }
 
 variable "name" {
@@ -10,11 +64,10 @@ variable "name" {
   type        = string
 }
 
-variable "name_is_prefix" {
-  description = "Use name prefix"
-  type        = bool
-  default     = false
-
+variable "security_group_names" {
+  description = "Defines rules of security group: map of map"
+  type        = list(string)
+  default     = []
 }
 
 variable "ssh_key_create" {
@@ -30,39 +83,15 @@ variable "ssh_key_name" {
   default     = ""
 }
 
-variable "image_name" {
-  description = "Name of the image to use to create the virtual machine"
-  default     = "cloud-ubuntu-22.04 LTS"
+variable "user_data" {
+  description = "Setup virtual machine with user data"
+  default     = ""
   type        = string
 }
 
-
-variable "machine_type_name" {
-  description = "Name of the type to use to create the virtual machine, same that instance type aws"
-  default     = "cloud-bs1.small"
-  type        = string
-}
-
-variable "network_name" {
-  description = "Name of the VPC where the virtual machine will run"
+variable "vpc_name" {
+  description = "Set name vpc will use"
   default     = "vpc_default"
   type        = string
-}
 
-variable "delete_public_ip_on_destroy" {
-  description = "Defines whether the created public ip should be deleted when the virtual machine is deleted"
-  default     = true
-  type        = bool
-}
-
-variable "associate_public_ip" {
-  description = "Defines whether the public IP should be created and attached to the virtual machine"
-  default     = true
-  type        = bool
-}
-
-variable "additional_disk" {
-  description = "Disks that will be additionally attached to the virtual machine, the structure is a map of maps"
-  default     = {}
-  type        = any
 }

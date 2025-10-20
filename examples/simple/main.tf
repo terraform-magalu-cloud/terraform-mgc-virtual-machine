@@ -1,5 +1,6 @@
 provider "mgc" {
-  region = "br-se1"
+  api_key = var.api_key
+  region  = var.region
 }
 
 resource "random_string" "sufix" {
@@ -9,9 +10,11 @@ resource "random_string" "sufix" {
 
 
 module "instance" {
-  source         = "../../"
-  create         = true
-  name           = "${var.name}-${random_string.sufix.id}"
-  ssh_key_create = false
-  ssh_key_name   = "key-example"
+  source            = "../../"
+  create            = true
+  name              = "${var.name}-${random_string.sufix.id}"
+  ssh_key_create    = false
+  ssh_key_name      = "key-example"
+  machine_type_name = "BV2-2-10"
 }
+
