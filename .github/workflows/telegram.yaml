@@ -22,6 +22,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           REPOSITORY: ${{ github.repository }}
+          THREAD_ID: ${{ ENV.THREAD_ID }}
         run: |
           cat <<'EOF' > send_release_telegram.py
           # Enviar mensagem Markdown para o Telegram com informações da release do GitHub
@@ -33,6 +34,7 @@ jobs:
           BOT_TOKEN = os.getenv("TELEGRAM_TOKEN")
           CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
           REPO = os.getenv("REPOSITORY")  # Formato: usuario/repositorio
+          THREAD_ID = os.getenv("THREAD_ID")
 
           # =======================
           # FUNÇÃO PARA ESCAPAR MARKDOWN
@@ -91,7 +93,8 @@ jobs:
           payload = {
               "chat_id": CHAT_ID,
               "text": message,
-              "parse_mode": "MarkdownV2"
+              "parse_mode": "MarkdownV2",
+              "message_thread_id": THREAD_ID
           }
 
           resp = requests.post(telegram_url, json=payload)

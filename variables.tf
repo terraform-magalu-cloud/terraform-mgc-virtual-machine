@@ -95,3 +95,9 @@ variable "vpc_name" {
   type        = string
 
 }
+
+variable "create_from_snapshot_id" {
+  description = "Create instance from snapshot"
+  default     = null
+  type        = string
+}

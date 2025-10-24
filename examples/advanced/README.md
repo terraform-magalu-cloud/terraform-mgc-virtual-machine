@@ -9,28 +9,29 @@ This module was created and maintained by the community. If you want to help, se
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.37.4 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.39.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.37.4 |
+| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.39.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.2 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_instance"></a> [instance](#module\_instance) | ../../ | n/a |
+| <a name="module_instance_first"></a> [instance\_first](#module\_instance\_first) | ../../ | n/a |
+| <a name="module_instance_second"></a> [instance\_second](#module\_instance\_second) | ../../ | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [random_string.sufix](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/string) | resource |
-| [mgc_virtual_machine_instance.identificador](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/virtual_machine_instance) | data source |
+| [mgc_virtual_machine_instance.first](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/virtual_machine_instance) | data source |
 
 ## Inputs
 
@@ -44,13 +45,13 @@ This module was created and maintained by the community. If you want to help, se
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | ID of the first created virtual machine instance. |
-| <a name="output_network_name"></a> [network\_name](#output\_network\_name) | Name of the first network interface of the first virtual machine instance. |
-| <a name="output_private_ipv4"></a> [private\_ipv4](#output\_private\_ipv4) | Private IPv4 address of the first network interface of the first virtual machine instance. |
-| <a name="output_private_ipv6"></a> [private\_ipv6](#output\_private\_ipv6) | Private IPv6 address of the first network interface of the first virtual machine instance. |
-| <a name="output_private_key"></a> [private\_key](#output\_private\_key) | Private key of the first virtual machine instance. |
-| <a name="output_public_ipv4"></a> [public\_ipv4](#output\_public\_ipv4) | Public IPv4 address of the first network interface of the first virtual machine instance. |
-| <a name="output_public_key"></a> [public\_key](#output\_public\_key) | Public key of the first virtual machine instance. |
-| <a name="output_security_group_ids"></a> [security\_group\_ids](#output\_security\_group\_ids) | List of security group IDs associated with the first virtual machine instance. |
-| <a name="output_vm_instances"></a> [vm\_instances](#output\_vm\_instances) | Information about the first virtual machine instance. |
-| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the VPC used by the first virtual machine instance. |
+| <a name="output_id"></a> [id](#output\_id) | ID of the first created virtual machine instance\_first. |
+| <a name="output_network_name"></a> [network\_name](#output\_network\_name) | Name of the first network interface of the first virtual machine instance\_first. |
+| <a name="output_private_ipv4"></a> [private\_ipv4](#output\_private\_ipv4) | Private IPv4 address of the first network interface of the first virtual machine instance\_first. |
+| <a name="output_private_ipv6"></a> [private\_ipv6](#output\_private\_ipv6) | Private IPv6 address of the first network interface of the first virtual machine instance\_first. |
+| <a name="output_private_key"></a> [private\_key](#output\_private\_key) | Private key of the first virtual machine instance\_first. |
+| <a name="output_public_ipv4"></a> [public\_ipv4](#output\_public\_ipv4) | Public IPv4 address of the first network interface of the first virtual machine instance\_first. |
+| <a name="output_public_key"></a> [public\_key](#output\_public\_key) | Public key of the first virtual machine instance\_first. |
+| <a name="output_security_group_ids"></a> [security\_group\_ids](#output\_security\_group\_ids) | List of security group IDs associated with the first virtual machine instance\_first. |
+| <a name="output_vm_instance_firsts"></a> [vm\_instance\_firsts](#output\_vm\_instance\_firsts) | Information about the first virtual machine instance\_first. |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the VPC used by the first virtual machine instance\_first. |
