@@ -10,7 +10,7 @@ This module was created and maintained by the community. If you want to help, se
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.2 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.37.4 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.39.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.1 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.6 |
@@ -20,7 +20,7 @@ This module was created and maintained by the community. If you want to help, se
 | Name | Version |
 |------|---------|
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.2 |
-| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.37.4 |
+| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.39.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.2 |
 | <a name="provider_time"></a> [time](#provider\_time) | 0.11.1 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
@@ -39,17 +39,16 @@ No modules.
 | [mgc_block_storage_schedule_attach.default_backup](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_schedule_attach) | resource |
 | [mgc_block_storage_volume_attachment.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_volume_attachment) | resource |
 | [mgc_block_storage_volumes.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_volumes) | resource |
-| [mgc_network_public_ips.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_public_ips) | resource |
-| [mgc_network_public_ips_attach.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_public_ips_attach) | resource |
-| [mgc_network_security_groups_attach.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_security_groups_attach) | resource |
 | [mgc_ssh_keys.ssh_key](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/ssh_keys) | resource |
 | [mgc_virtual_machine_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/virtual_machine_instances) | resource |
 | [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/pet) | resource |
+| [random_string.sufix_backup](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/string) | resource |
 | [random_string.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/string) | resource |
 | [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/0.11.1/docs/resources/sleep) | resource |
 | [tls_private_key.ssh_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.6/docs/resources/private_key) | resource |
 | [mgc_network_security_groups.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/network_security_groups) | data source |
 | [mgc_network_vpcs.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/network_vpcs) | data source |
+| [mgc_virtual_machine_instance.instance](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/virtual_machine_instance) | data source |
 
 ## Inputs
 
@@ -62,6 +61,7 @@ No modules.
 | <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | Retention backup for days | `number` | `7` | no |
 | <a name="input_backup_schedule"></a> [backup\_schedule](#input\_backup\_schedule) | Schedule time backup | `string` | `"03:00:00"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether the virtual machine was created or not | `bool` | `true` | no |
+| <a name="input_create_from_snapshot_id"></a> [create\_from\_snapshot\_id](#input\_create\_from\_snapshot\_id) | Create instance from snapshot | `string` | `null` | no |
 | <a name="input_disk_type"></a> [disk\_type](#input\_disk\_type) | Set type disk | `string` | `"cloud_nvme1k"` | no |
 | <a name="input_image_name"></a> [image\_name](#input\_image\_name) | Name of the image to use to create the virtual machine | `string` | `"cloud-ubuntu-24.04 LTS"` | no |
 | <a name="input_machine_type_name"></a> [machine\_type\_name](#input\_machine\_type\_name) | Name of the type to use to create the virtual machine, same that instance type aws | `string` | `"BV1-1-10"` | no |
