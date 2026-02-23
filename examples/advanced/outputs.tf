@@ -49,3 +49,8 @@ output "vm_instance_firsts" {
   description = "Information about the first virtual machine instance_first."
   value       = data.mgc_virtual_machine_instance.first
 }
+
+output "snapshots" {
+  description = "Snapshot list of the first virtual machine instance_first."
+  value       = data.mgc_virtual_machine_snapshots.snaps
+}
