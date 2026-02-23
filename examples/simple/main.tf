@@ -15,6 +15,5 @@ module "instance" {
   name              = "${var.name}-${random_string.sufix.id}"
   ssh_key_create    = false
   ssh_key_name      = "key-example"
-  machine_type_name = "BV2-2-10"
+  machine_type_name = "cloud-bs1.xsmall"
 }
-

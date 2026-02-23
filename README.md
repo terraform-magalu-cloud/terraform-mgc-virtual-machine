@@ -8,9 +8,9 @@ This module was created and maintained by the community. If you want to help, se
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11.1 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.2 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.39.0 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.44.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.1 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.6 |
@@ -20,7 +20,7 @@ This module was created and maintained by the community. If you want to help, se
 | Name | Version |
 |------|---------|
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.2 |
-| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.39.0 |
+| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.44.2 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.2 |
 | <a name="provider_time"></a> [time](#provider\_time) | 0.11.1 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |

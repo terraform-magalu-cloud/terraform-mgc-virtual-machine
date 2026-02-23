@@ -2,7 +2,7 @@ terraform {
   required_providers {
     mgc = {
       source  = "MagaluCloud/mgc"
-      version = "~> 0.39.0"
+      version = "~> 0.44.0"
     }
     random = {
       source  = "hashicorp/random"

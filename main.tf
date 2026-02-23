@@ -42,9 +42,9 @@ resource "mgc_ssh_keys" "ssh_key" {
 }
 
 resource "mgc_virtual_machine_instances" "this" {
-  depends_on               = [random_pet.this, random_string.this, tls_private_key.ssh_key, mgc_ssh_keys.ssh_key, local.resulting_security_group_ids]
+  depends_on               = [random_pet.this, random_string.this, tls_private_key.ssh_key, mgc_ssh_keys.ssh_key]
   count                    = var.create ? 1 : 0
-  ssh_key_name             = length(var.ssh_key_name) > 0 ? var.ssh_key_name : ""
+  ssh_key_name             = var.ssh_key_create ? mgc_ssh_keys.ssh_key[0].name : var.ssh_key_name
   name                     = length(var.name) > 0 ? lower(var.name) : lower("${resource.random_pet.this[0].id}-${resource.random_string.this[0].id}")
   machine_type             = var.machine_type_name
   image                    = var.create_from_snapshot_id == null ? var.image_name : null

@@ -8,15 +8,15 @@ This module was created and maintained by the community. If you want to help, se
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.39.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11.1 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.44.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.39.0 |
+| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.44.2 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.2 |
 
 ## Modules
@@ -32,6 +32,7 @@ This module was created and maintained by the community. If you want to help, se
 |------|------|
 | [random_string.sufix](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/string) | resource |
 | [mgc_virtual_machine_instance.first](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/virtual_machine_instance) | data source |
+| [mgc_virtual_machine_snapshots.snaps](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/virtual_machine_snapshots) | data source |
 
 ## Inputs
 
@@ -53,5 +54,6 @@ This module was created and maintained by the community. If you want to help, se
 | <a name="output_public_ipv4"></a> [public\_ipv4](#output\_public\_ipv4) | Public IPv4 address of the first network interface of the first virtual machine instance\_first. |
 | <a name="output_public_key"></a> [public\_key](#output\_public\_key) | Public key of the first virtual machine instance\_first. |
 | <a name="output_security_group_ids"></a> [security\_group\_ids](#output\_security\_group\_ids) | List of security group IDs associated with the first virtual machine instance\_first. |
+| <a name="output_snapshots"></a> [snapshots](#output\_snapshots) | Snapshot list of the first virtual machine instance\_first. |
 | <a name="output_vm_instance_firsts"></a> [vm\_instance\_firsts](#output\_vm\_instance\_firsts) | Information about the first virtual machine instance\_first. |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the VPC used by the first virtual machine instance\_first. |
