@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v2.1.0...v2.2.0) (2026-02-22)
+
+### Features
+
+* upgrade do provider mgc
+* adiciona Makefile com comandos padronizados para o ciclo de vida do Terraform (init, plan, apply, destroy, clean, fmt, validate e docs)
+
+### Bug Fixes
+
+* corrige a atribuição de 'ssh_key_name' na instância para usar a chave gerada quando 'ssh_key_create' é true
+* remove dependência inválida de variável local (resulting_security_group_ids) no bloco 'depends_on'
+* documenta reporte de bug referente à remoção de IP público ([issue #277](https://github.com/MagaluCloud/terraform-provider-mgc/issues/277))
+
 ## [2.1.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v2.0.0...v2.1.0) (2025-10-20)
 
 
