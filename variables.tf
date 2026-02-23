@@ -4,6 +4,7 @@ variable "additional_disk" {
   type        = any
 }
 
+#https://github.com/MagaluCloud/terraform-provider-mgc/issues/277
 variable "attach_public_ip" {
   description = "Attach public ip"
   type        = bool
