@@ -51,26 +51,9 @@ resource "mgc_virtual_machine_instances" "this" {
   availability_zone        = length(var.availability_zone) > 0 ? var.availability_zone : null
   user_data                = length(var.user_data) > 0 ? base64encode(var.user_data) : null
   vpc_id                   = local.vpc_default_id
-  allocate_public_ipv4     = false
+  allocate_public_ipv4     = var.attach_public_ip
   creation_security_groups = length(local.resulting_security_group_ids) > 0 ? toset(sort(local.resulting_security_group_ids)) : null
   snapshot_id              = var.create_from_snapshot_id != null ? var.create_from_snapshot_id : null
-}
-
-resource "mgc_network_public_ips" "attach_public_ip" {
-  count       = var.create && var.attach_public_ip ? 1 : 0
-  description = "public ip ${mgc_virtual_machine_instances.this[0].name}"
-  vpc_id      = local.vpc_default_id
-}
-
-resource "mgc_network_public_ips_attach" "attach_public_ip" {
-  depends_on   = [mgc_virtual_machine_instances.this, mgc_network_public_ips.attach_public_ip]
-  count        = var.create && var.attach_public_ip ? 1 : 0
-  public_ip_id = mgc_network_public_ips.attach_public_ip[0].id
-  interface_id = mgc_virtual_machine_instances.this[0].network_interfaces[0].id
-  lifecycle {
-    create_before_destroy = true
-  }
-
 }
 
 resource "mgc_block_storage_volumes" "this" {

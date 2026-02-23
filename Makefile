@@ -1,4 +1,4 @@
-.PHONY: all init plan apply destroy clean fmt validate
+.PHONY: all init plan apply destroy clean fmt validate docs pre-commit
 
 # Define o diretório onde os comandos do terraform serão executados.
 # Padrão: examples/simple (comum para testar módulos)
@@ -7,13 +7,13 @@ DIR ?= examples/simple
 DIR2 ?= examples/advanced
 
 
-all: fmt init validate plan
+all: docs fmt pre-commit init validate plan
 
 init:
 	@echo "Inicializando Terraform em $(DIR)..."
-	terraform init
-	cd $(DIR) && terraform init && cd -
-	cd $(DIR2) && terraform init && cd -
+	terraform init -upgrade
+	cd $(DIR) && terraform init -upgrade && cd -
+	cd $(DIR2) && terraform init -upgrade && cd -
 
 plan:
 	@echo "Gerando plano de execução em $(DIR)..."
@@ -48,3 +48,13 @@ clean:
 	find . -type f -name ".terraform.lock.hcl" -delete
 	find . -type f -name "*.tfstate" -delete
 	find . -type f -name "*.tfstate.backup" -delete
+
+pre-commit:
+	@echo "Executando pre-commit hooks..."
+	pre-commit run --all-files
+
+docs:
+	@echo "Gerando documentação com terraform-docs..."
+	terraform-docs .
+	cd $(DIR) && terraform-docs . && cd -
+	cd $(DIR2) && terraform-docs . && cd -

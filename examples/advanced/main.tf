@@ -22,8 +22,7 @@ module "instance_first" {
   vpc_name                = "vpc_default"
   machine_type_name       = "BV2-2-10"
   create_from_snapshot_id = data.mgc_virtual_machine_snapshots.snaps.snapshots != null ? data.mgc_virtual_machine_snapshots.snaps.snapshots[0].id : null
-  #create_from_snapshot_
-  image_name = "cloud-ubuntu-24.04 LTS"
+  image_name              = "cloud-ubuntu-24.04 LTS"
   additional_disk = {
     vdb = {
       name      = "opt"
@@ -54,7 +53,6 @@ module "instance_second" {
   vpc_name              = "vpc_default"
   machine_type_name     = "BV2-2-10"
   image_name            = "cloud-ubuntu-24.04 LTS"
-  #create_from_snapshot_id = "12586af7-43d6-4229-9b29-2a93bd7d429b"
   additional_disk = {
     vdb = {
       name      = "opt"
@@ -69,5 +67,4 @@ module "instance_second" {
       encrypted = false
     }
   }
-  #security_group_names = ["panda-pub-party", "example-security-group", "sg-example-akSdVhOR"]
 }
