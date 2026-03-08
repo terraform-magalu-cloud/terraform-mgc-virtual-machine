@@ -1,0 +1,30 @@
+name: Telegram Notification
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    name: Send Telegram Message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          disable_web_page_preview: true # Evita que um card gigante do GitHub polua o chat
+          message: |
+            🚀 <b>NOVA VERSÃO PUBLICADA!</b>
+
+            📦 <b>Projeto:</b> <code>${{ github.repository }}</code>
+            🏷️ <b>Versão:</b> <code>${{ github.event.release.tag_name }}</code>
+            👤 <b>Autor:</b> <a href="${{ github.event.release.author.html_url }}">${{ github.event.release.author.login }}</a>
+
+            📝 <b>O que há de novo:</b>
+            <code>${{ github.event.release.body }}</code>
+
+            🔗 <a href="${{ github.event.release.html_url }}">Visualizar Release completa no GitHub</a>
