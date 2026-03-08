@@ -31,4 +31,4 @@ jobs:
             @semantic-release/changelog
             @semantic-release/git
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_RELEASE }}
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
