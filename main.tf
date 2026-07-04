@@ -60,9 +60,6 @@ resource "mgc_network_public_ips" "this" {
   depends_on = [mgc_virtual_machine_instances.this]
   count      = var.create && var.attach_public_ip ? 1 : 0
   vpc_id     = mgc_virtual_machine_instances.this[0].vpc_id
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "mgc_network_public_ips_attach" "this" {
