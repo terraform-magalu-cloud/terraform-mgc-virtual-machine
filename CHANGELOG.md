@@ -6,20 +6,20 @@ All notable changes to this project will be documented in this file.
 
 ### Features
 
-* **provider:** upgrade do provider Magalu Cloud (`mgc`) para `>= 0.56.0`
-* **network:** adiciona suporte a sub-rede primária através da nova variável `subnet_id` (`creation_subnets`)
-* **network:** flexibiliza definição de VPC permitindo informar `vpc_id` diretamente sem obrigatoriedade de lookup por nome
-* **security:** flexibiliza associação de grupos de segurança com a nova variável `security_group_ids`
-* **testing:** implantação de suíte de testes com `terraform test` (`tests/unit.tftest.hcl`, `tests/integration.tftest.hcl` e `tests/live.tftest.hcl.example`)
-* **ci:** inclusão de job de testes automatizados no workflow de PR (`.github/workflows/pre-commit.yml`) e pinning seguro da action do Telegram
+* **provedor:** atualização do provedor Magalu Cloud (`mgc`) para `>= 0.56.0`
+* **rede:** adiciona suporte a sub-rede primária através da nova variável `subnet_id` (`creation_subnets`)
+* **rede:** flexibiliza definição de VPC permitindo informar `vpc_id` diretamente sem necessidade de busca por nome
+* **segurança:** flexibiliza associação de grupos de segurança com a nova variável `security_group_ids`
+* **testes:** implantação de suíte de testes nativa com `terraform test` (`tests/unit.tftest.hcl`, `tests/integration.tftest.hcl` e `tests/live.tftest.hcl.example`)
+* **ci:** inclusão de execução de testes automatizados no workflow de PR (`.github/workflows/pre-commit.yml`) e fixação de versão estável da action do Telegram
 
 ### Bug Fixes
 
-* **lifecycle:** condiciona o data source `mgc_virtual_machine_instance` e recursos de agendamento de backup a `var.create` evitando falhas com `create = false`
-* **storage:** respeita o atributo `type` individual informado no mapa de `additional_disk` com fallback para `var.disk_type`
-* **performance:** condiciona o tempo de espera de 30s (`time_sleep.wait_30_seconds`) apenas quando houver discos adicionais configurados
-* **ssh:** torna `ssh_key_name` opcional/nulo quando não informado ou em instâncias Windows
-* **provider:** remove atribuição de valor em atributo write-only (`allocate_public_ipv4`) compatibilizando com Terraform 1.11+
+* **ciclo de vida:** condiciona o data source `mgc_virtual_machine_instance` e recursos de agendamento de backup a `var.create`, corrigindo falhas quando `create = false`
+* **armazenamento:** respeita o tipo de disco (`type`) informado individualmente no mapa de `additional_disk` com fallback para `var.disk_type`
+* **performance:** remove espera desnecessária de 30 segundos (`time_sleep.wait_30_seconds`) quando não houver discos adicionais
+* **ssh:** torna `ssh_key_name` opcional/nulo quando não informado ou para instâncias Windows
+* **compatibilidade:** remove atribuição em atributo write-only (`allocate_public_ipv4`), compatibilizando com o Terraform 1.11+
 
 ## [3.2.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v3.1.0...v3.2.0) (2026-03-08)
 
