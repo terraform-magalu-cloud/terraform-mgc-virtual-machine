@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v3.2.0...v3.3.0) (2026-11-20)
+
+### Features
+
+* **provider:** upgrade do provider Magalu Cloud (`mgc`) para `>= 0.56.0`
+* **network:** adiciona suporte a sub-rede primária através da nova variável `subnet_id` (`creation_subnets`)
+* **network:** flexibiliza definição de VPC permitindo informar `vpc_id` diretamente sem obrigatoriedade de lookup por nome
+* **security:** flexibiliza associação de grupos de segurança com a nova variável `security_group_ids`
+* **testing:** implantação de suíte de testes com `terraform test` (`tests/unit.tftest.hcl`, `tests/integration.tftest.hcl` e `tests/live.tftest.hcl.example`)
+* **ci:** inclusão de job de testes automatizados no workflow de PR (`.github/workflows/pre-commit.yml`) e pinning seguro da action do Telegram
+
+### Bug Fixes
+
+* **lifecycle:** condiciona o data source `mgc_virtual_machine_instance` e recursos de agendamento de backup a `var.create` evitando falhas com `create = false`
+* **storage:** respeita o atributo `type` individual informado no mapa de `additional_disk` com fallback para `var.disk_type`
+* **performance:** condiciona o tempo de espera de 30s (`time_sleep.wait_30_seconds`) apenas quando houver discos adicionais configurados
+* **ssh:** torna `ssh_key_name` opcional/nulo quando não informado ou em instâncias Windows
+* **provider:** remove atribuição de valor em atributo write-only (`allocate_public_ipv4`) compatibilizando com Terraform 1.11+
+
+## [3.2.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v3.1.0...v3.2.0) (2026-03-08)
+
+### Features
+
+* upgrade do provider mgc para 0.45.0
+* gerenciamento de IP público via recursos dedicados (`mgc_network_public_ips` e `mgc_network_public_ips_attach`) com a variável `attach_public_ip`
+* adiciona exemplo simples de uso do módulo de VM
+
 ## [3.1.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v2.1.0...v2.2.0) (2026-02-22)
 
 ### Features
