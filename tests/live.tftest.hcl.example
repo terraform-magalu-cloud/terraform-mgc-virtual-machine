@@ -1,0 +1,34 @@
+# tests/live.tftest.hcl.example
+# Para executar este teste contra a nuvem real da Magalu Cloud:
+# 1. Renomeie este arquivo para tests/live.tftest.hcl (ou execute com -filter=...)
+# 2. Defina a variável de ambiente: export TF_VAR_mgc_api_key="sua-chave"
+# 3. Execute: terraform test -filter=tests/live.tftest.hcl
+
+# Configuração do provedor real
+provider "mgc" {
+  # O provider MGC lê automaticamente a variável de ambiente TF_VAR_mgc_api_key ou MGC_API_KEY
+}
+
+variables {
+  name              = "tftest-live-vm"
+  machine_type_name = "BV1-1-10"
+  image_name        = "cloud-ubuntu-24.04 LTS"
+  ssh_key_create    = true
+  ssh_key_name      = "tftest-live-key"
+  attach_public_ip  = false
+  backup_enabled    = false
+}
+
+run "create_live_vm" {
+  command = apply
+
+  assert {
+    condition     = output.id != null
+    error_message = "O ID da VM deve ser preenchido após o provisionamento real."
+  }
+
+  assert {
+    condition     = output.private_ipv4 != null
+    error_message = "A VM deve possuir um endereço IPv4 privado na Magalu Cloud."
+  }
+}

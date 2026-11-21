@@ -13,13 +13,13 @@ output "id" {
 output "image_name" {
   depends_on  = [data.mgc_virtual_machine_instance.instance]
   description = "Name of the first virtual machine instance."
-  value       = try(data.mgc_virtual_machine_instance.instance.image_name, null)
+  value       = try(data.mgc_virtual_machine_instance.instance[0].image_name, null)
 }
 
 output "image_platform" {
   depends_on  = [data.mgc_virtual_machine_instance.instance]
   description = "Name of the first virtual machine instance."
-  value       = try(data.mgc_virtual_machine_instance.instance.image_platform, null)
+  value       = try(data.mgc_virtual_machine_instance.instance[0].image_platform, null)
 }
 
 output "interface_primary" {
@@ -30,7 +30,7 @@ output "interface_primary" {
 output "machine_type" {
   depends_on  = [data.mgc_virtual_machine_instance.instance]
   description = "Name of the first virtual machine instance."
-  value       = try(data.mgc_virtual_machine_instance.instance.machine_type_name, null)
+  value       = try(data.mgc_virtual_machine_instance.instance[0].machine_type_name, null)
 }
 
 output "name" {
@@ -52,12 +52,12 @@ output "network_name" {
 
 output "private_ipv4" {
   description = "Private IPv4 address of the first network interface of the first virtual machine instance."
-  value       = try(mgc_virtual_machine_instances.this[0].network_interfaces[0].local_ipv4, null)
+  value       = try(mgc_virtual_machine_instances.this[0].local_ipv4, mgc_virtual_machine_instances.this[0].network_interfaces[0].local_ipv4, null)
 }
 
 output "private_ipv6" {
   description = "Private IPv6 address of the first network interface of the first virtual machine instance."
-  value       = try(mgc_virtual_machine_instances.this[0].network_interfaces[0].ipv6, null)
+  value       = try(mgc_virtual_machine_instances.this[0].ipv6, mgc_virtual_machine_instances.this[0].network_interfaces[0].ipv6, null)
 }
 
 output "private_key" {
@@ -68,7 +68,7 @@ output "private_key" {
 
 output "public_ipv4" {
   description = "Public IPv4 address of the first network interface of the first virtual machine instance."
-  value       = try(mgc_virtual_machine_instances.this[0].network_interfaces[0].ipv4, null)
+  value       = try(mgc_virtual_machine_instances.this[0].ipv4, mgc_virtual_machine_instances.this[0].network_interfaces[0].ipv4, null)
 }
 
 output "public_key" {
@@ -90,6 +90,11 @@ output "security_group_names" {
 output "ssh_key_name" {
   description = "Name of the first virtual machine instance."
   value       = try(mgc_virtual_machine_instances.this[0].ssh_key_name, null)
+}
+
+output "subnet_id" {
+  description = "Subnet ID in which the virtual machine instance was created."
+  value       = var.subnet_id
 }
 
 output "vpc_id" {

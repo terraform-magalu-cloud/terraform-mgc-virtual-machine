@@ -65,6 +65,12 @@ variable "name" {
   type        = string
 }
 
+variable "security_group_ids" {
+  description = "List of security group IDs to be associated with the primary network interface"
+  type        = list(string)
+  default     = []
+}
+
 variable "security_group_names" {
   description = "Defines rules of security group: map of map"
   type        = list(string)
@@ -87,6 +93,18 @@ variable "ssh_key_name" {
 variable "user_data" {
   description = "Setup virtual machine with user data"
   default     = ""
+  type        = string
+}
+
+variable "subnet_id" {
+  description = "The subnet in which the primary network interface will be created"
+  default     = null
+  type        = string
+}
+
+variable "vpc_id" {
+  description = "Set VPC ID directly instead of searching by vpc_name"
+  default     = null
   type        = string
 }
 

@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify Telegram
-        uses: appleboy/telegram-action@master
+        uses: appleboy/telegram-action@v1.0.1
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
@@ -21,10 +21,10 @@ jobs:
             🚀 <b>NOVA VERSÃO PUBLICADA!</b>
 
             📦 <b>Projeto:</b> <code>${{ github.repository }}</code>
-            🏷️ <b>Versão:</b> <code>${{ github.event.release.tag_name }}</code>
-            👤 <b>Autor:</b> <a href="${{ github.event.release.author.html_url }}">${{ github.event.release.author.login }}</a>
+            🏷️ <b>Versão:</b> <code>${{ github.event.release.tag_name || 'Manual / Teste' }}</code>
+            👤 <b>Autor:</b> <a href="${{ github.event.release.author.html_url || github.server_url }}">${{ github.event.release.author.login || github.actor }}</a>
 
             📝 <b>O que há de novo:</b>
-            <code>${{ github.event.release.body }}</code>
+            <code>${{ github.event.release.body || 'Disparo manual sem notas de release associadas.' }}</code>
 
-            🔗 <a href="${{ github.event.release.html_url }}">Visualizar Release completa no GitHub</a>
+            🔗 <a href="${{ github.event.release.html_url || github.server_url }}">Visualizar Release completa no GitHub</a>

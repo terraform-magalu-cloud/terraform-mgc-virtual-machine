@@ -97,3 +97,22 @@ jobs:
           tflint-version: ${{ env.TFLINT_VERSION }}
           terraform-docs-version: ${{ env.TERRAFORM_DOCS_VERSION }}
           install-hcledit: true
+
+  test:
+    name: Terraform Test
+    runs-on: ubuntu-latest
+    needs: collectInputs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.11.1"
+
+      - name: Terraform Init
+        run: terraform init -upgrade
+
+      - name: Run Unit & Integration Tests
+        run: terraform test

@@ -10,7 +10,7 @@ This module was created and maintained by the community. If you want to help, se
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11.1 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.2 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | ~> 0.44.0 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | >= 0.56.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.1 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.6 |
@@ -20,7 +20,7 @@ This module was created and maintained by the community. If you want to help, se
 | Name | Version |
 |------|---------|
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.2 |
-| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.44.2 |
+| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | >= 0.56.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.2 |
 | <a name="provider_time"></a> [time](#provider\_time) | 0.11.1 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
@@ -39,6 +39,8 @@ No modules.
 | [mgc_block_storage_schedule_attach.default_backup](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_schedule_attach) | resource |
 | [mgc_block_storage_volume_attachment.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_volume_attachment) | resource |
 | [mgc_block_storage_volumes.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/block_storage_volumes) | resource |
+| [mgc_network_public_ips.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_public_ips) | resource |
+| [mgc_network_public_ips_attach.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/network_public_ips_attach) | resource |
 | [mgc_ssh_keys.ssh_key](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/ssh_keys) | resource |
 | [mgc_virtual_machine_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/virtual_machine_instances) | resource |
 | [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/pet) | resource |
@@ -66,10 +68,13 @@ No modules.
 | <a name="input_image_name"></a> [image\_name](#input\_image\_name) | Name of the image to use to create the virtual machine | `string` | `"cloud-ubuntu-24.04 LTS"` | no |
 | <a name="input_machine_type_name"></a> [machine\_type\_name](#input\_machine\_type\_name) | Name of the type to use to create the virtual machine, same that instance type aws | `string` | `"BV1-1-10"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Defines the name of the virtual machine and must be unique | `string` | `""` | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | List of security group IDs to be associated with the primary network interface | `list(string)` | `[]` | no |
 | <a name="input_security_group_names"></a> [security\_group\_names](#input\_security\_group\_names) | Defines rules of security group: map of map | `list(string)` | `[]` | no |
 | <a name="input_ssh_key_create"></a> [ssh\_key\_create](#input\_ssh\_key\_create) | Create ssh key with instance | `bool` | `false` | no |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | Name of the registered public key | `string` | `""` | no |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The subnet in which the primary network interface will be created | `string` | `null` | no |
 | <a name="input_user_data"></a> [user\_data](#input\_user\_data) | Setup virtual machine with user data | `string` | `""` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Set VPC ID directly instead of searching by vpc_name | `string` | `null` | no |
 | <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | Set name vpc will use | `string` | `"vpc_default"` | no |
 
 ## Outputs
@@ -93,4 +98,5 @@ No modules.
 | <a name="output_security_group_ids"></a> [security\_group\_ids](#output\_security\_group\_ids) | List of security group IDs associated with the first virtual machine instance. |
 | <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | List of security group IDs associated with the first virtual machine instance. |
 | <a name="output_ssh_key_name"></a> [ssh\_key\_name](#output\_ssh\_key\_name) | Name of the first virtual machine instance. |
+| <a name="output_subnet_id"></a> [subnet\_id](#output\_subnet\_id) | Subnet ID in which the virtual machine instance was created. |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the VPC used by the first virtual machine instance. |

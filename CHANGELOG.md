@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v3.2.0...v3.3.0) (2026-11-20)
+
+### Features
+
+* **provedor:** atualização do provedor Magalu Cloud (`mgc`) para `>= 0.56.0`
+* **rede:** adiciona suporte a sub-rede primária através da nova variável `subnet_id` (`creation_subnets`)
+* **rede:** flexibiliza definição de VPC permitindo informar `vpc_id` diretamente sem necessidade de busca por nome
+* **segurança:** flexibiliza associação de grupos de segurança com a nova variável `security_group_ids`
+* **testes:** implantação de suíte de testes nativa com `terraform test` (`tests/unit.tftest.hcl`, `tests/integration.tftest.hcl` e `tests/live.tftest.hcl.example`)
+* **ci:** inclusão de execução de testes automatizados no workflow de PR (`.github/workflows/pre-commit.yml`) e fixação de versão estável da action do Telegram
+
+### Bug Fixes
+
+* **ciclo de vida:** condiciona o data source `mgc_virtual_machine_instance` e recursos de agendamento de backup a `var.create`, corrigindo falhas quando `create = false`
+* **armazenamento:** respeita o tipo de disco (`type`) informado individualmente no mapa de `additional_disk` com fallback para `var.disk_type`
+* **performance:** remove espera desnecessária de 30 segundos (`time_sleep.wait_30_seconds`) quando não houver discos adicionais
+* **ssh:** torna `ssh_key_name` opcional/nulo quando não informado ou para instâncias Windows
+* **compatibilidade:** remove atribuição em atributo write-only (`allocate_public_ipv4`), compatibilizando com o Terraform 1.11+
+
+## [3.2.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v3.1.0...v3.2.0) (2026-03-08)
+
+### Features
+
+* upgrade do provider mgc para 0.45.0
+* gerenciamento de IP público via recursos dedicados (`mgc_network_public_ips` e `mgc_network_public_ips_attach`) com a variável `attach_public_ip`
+* adiciona exemplo simples de uso do módulo de VM
+
 ## [3.1.0](https://github.com/terraform-magalu-cloud/terraform-mgc-virtual-machine/compare/v2.1.0...v2.2.0) (2026-02-22)
 
 ### Features

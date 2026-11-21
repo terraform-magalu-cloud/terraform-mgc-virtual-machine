@@ -37,21 +37,21 @@ resource "local_sensitive_file" "ssh_key" {
 resource "mgc_ssh_keys" "ssh_key" {
   depends_on = [tls_private_key.ssh_key, local_file.ssh_key, local_sensitive_file.ssh_key]
   count      = var.ssh_key_create ? 1 : 0
-  name       = length(var.ssh_key_name) > 0 ? var.ssh_key_name : "${resource.random_pet.this[0].id}-${resource.random_string.this[0].id}"
+  name       = length(var.ssh_key_name) > 0 ? var.ssh_key_name : (length(var.name) > 0 ? "${lower(var.name)}-key" : "${resource.random_pet.this[0].id}-${resource.random_string.this[0].id}")
   key        = tls_private_key.ssh_key[0].public_key_openssh
 }
 
 resource "mgc_virtual_machine_instances" "this" {
   depends_on               = [random_pet.this, random_string.this, tls_private_key.ssh_key, mgc_ssh_keys.ssh_key]
   count                    = var.create ? 1 : 0
-  ssh_key_name             = var.ssh_key_create ? mgc_ssh_keys.ssh_key[0].name : var.ssh_key_name
+  ssh_key_name             = var.ssh_key_create ? mgc_ssh_keys.ssh_key[0].name : (length(var.ssh_key_name) > 0 ? var.ssh_key_name : null)
   name                     = length(var.name) > 0 ? lower(var.name) : lower("${resource.random_pet.this[0].id}-${resource.random_string.this[0].id}")
   machine_type             = var.machine_type_name
   image                    = var.create_from_snapshot_id == null ? var.image_name : null
   availability_zone        = length(var.availability_zone) > 0 ? var.availability_zone : null
   user_data                = length(var.user_data) > 0 ? base64encode(var.user_data) : null
   vpc_id                   = local.vpc_default_id
-  allocate_public_ipv4     = false
+  creation_subnets         = var.subnet_id != null && var.subnet_id != "" ? [var.subnet_id] : null
   creation_security_groups = length(local.resulting_security_group_ids) > 0 ? toset(sort(local.resulting_security_group_ids)) : null
   snapshot_id              = var.create_from_snapshot_id != null ? var.create_from_snapshot_id : null
 }
@@ -77,14 +77,14 @@ resource "mgc_block_storage_volumes" "this" {
   for_each          = var.create && length(var.additional_disk) > 0 ? var.additional_disk : {}
   name              = "${mgc_virtual_machine_instances.this[0].name}-${each.value.name}"
   size              = try(each.value.size, 10)
-  type              = var.disk_type
+  type              = try(each.value.type, var.disk_type)
   availability_zone = length(var.availability_zone) > 0 ? var.availability_zone : null
   encrypted         = try(each.value.encrypted, false)
 }
 
 resource "time_sleep" "wait_30_seconds" {
   depends_on = [mgc_virtual_machine_instances.this, mgc_block_storage_volumes.this]
-  count      = var.create ? 1 : 0
+  count      = var.create && length(var.additional_disk) > 0 ? 1 : 0
 
   create_duration  = "30s"
   destroy_duration = "30s"
@@ -113,7 +113,7 @@ resource "random_string" "sufix_backup" {
 }
 
 resource "mgc_block_storage_schedule" "default_backup" {
-  count                             = var.backup_enabled ? 1 : 0
+  count                             = var.create && var.backup_enabled ? 1 : 0
   name                              = "default-backup-schedule-${random_string.sufix_backup[0].id}"
   description                       = "Backup schedule from ${mgc_virtual_machine_instances.this[0].name}"
   snapshot_type                     = "instant"
@@ -123,7 +123,7 @@ resource "mgc_block_storage_schedule" "default_backup" {
 
 resource "mgc_block_storage_schedule_attach" "default_backup" {
   depends_on  = [mgc_block_storage_schedule.default_backup, mgc_block_storage_volumes.this]
-  for_each    = var.backup_enabled && length(var.additional_disk) > 0 ? tomap(var.additional_disk) : {}
+  for_each    = var.create && var.backup_enabled && length(var.additional_disk) > 0 ? tomap(var.additional_disk) : {}
   schedule_id = mgc_block_storage_schedule.default_backup[0].id
   volume_id   = mgc_block_storage_volumes.this[each.key].id
 }
