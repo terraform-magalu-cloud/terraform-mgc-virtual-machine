@@ -82,18 +82,18 @@ provider "registry.terraform.io/hashicorp/tls" {
 }
 
 provider "registry.terraform.io/magalucloud/mgc" {
-  version     = "0.45.1"
-  constraints = ">= 0.45.0"
+  version     = "0.56.0"
+  constraints = ">= 0.56.0"
   hashes = [
-    "h1:rBb426cjWq751PBItvfsIZ7csF2HVL80UfGmwGbDtI0=",
-    "zh:07ea7716f759b026c458bb816483dc3c480c8075eb39fee4470eb558c76f72be",
-    "zh:1bae67389d5fd5e46fc1168d5928241bfb127b3ce2b98e0837d30419244163a3",
-    "zh:445738d401b448fa174e42b91166673cbd155d535833ca783d16866e9168a748",
-    "zh:55f684def137dd2144f7df9a32bd4fb0d61001b466e7a6a8802958095f2ce060",
-    "zh:580cbb88830e8243df1cc334c67689b8378b410bf6f1cca148c0acf4afcbdb29",
-    "zh:694281e3a474a6a525d6889d73d2a2880f9c137c5d03e0cab3fab78b31ea8e49",
-    "zh:839cf9b979ae6ff5050d1b4b4f05408abc3224222cc5aa0b432c3f57db43e866",
+    "h1:hHQRHv+KSZ/sPCVZB9Vpp7yR0cUDd2225HqzzO6Rszw=",
+    "zh:29d53bd25442e104b9f0f16f3a052851b482380e1981b3474621ef89a812c3d7",
+    "zh:4030e933a0f7772cdcbe13acd739a8da10e5bcbc448ed9b0385c44106180e12d",
+    "zh:60165085210596138ca82e1d93e568ced0e25104eb75fe299c53724ffd60fe84",
+    "zh:696fde2fe8f8e7166f69e9aa73df39c868e9ebd62627e1cc00b24ae37b13dd13",
+    "zh:6a0c90dbfd7d25c53172d1d0b1dd90f9e9041fec514548f388dacd34af0b1173",
     "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
-    "zh:c42d3a4979740ea08f54b4238dd5b07ed966cbeebfbdbfdd1102831a14e2a384",
+    "zh:b81d7f9d2d4b92d07e2e22ce5df9c8619bdf0f928b5cda2b8d9b01f89c372a8a",
+    "zh:f4317d5875a079b53fd354c0cf1174f821e279d46fa503881efd5a2250f68e78",
+    "zh:ff888359d1a1fb96042b745707305d5fafddac12ebf22dc91154a5c32a348df3",
   ]
 }

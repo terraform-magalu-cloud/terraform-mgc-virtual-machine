@@ -1,4 +1,4 @@
-.PHONY: all init plan apply destroy clean fmt validate docs pre-commit
+.PHONY: all init plan apply destroy clean fmt validate docs pre-commit test test-unit test-integration
 
 # Define o diretório onde os comandos do terraform serão executados.
 # Padrão: examples/simple (comum para testar módulos)
@@ -7,7 +7,7 @@ DIR ?= examples/simple
 DIR2 ?= examples/advanced
 
 
-all: docs fmt pre-commit init validate plan
+all: docs fmt pre-commit init validate test-unit plan
 
 init:
 	@echo "Inicializando Terraform em $(DIR)..."
@@ -41,6 +41,20 @@ validate:
 	terraform validate
 	cd $(DIR) && terraform validate && cd -
 	cd $(DIR2) && terraform validate && cd -
+
+test:
+	@echo "Executando todos os testes do módulo com terraform test..."
+	terraform test
+
+test-unit:
+	@echo "Executando testes unitários mockados (sem chamadas de rede)..."
+	terraform test -filter=tests/unit.tftest.hcl
+
+test-integration:
+	@echo "Executando testes de integração E2E..."
+	terraform test -filter=tests/integration.tftest.hcl
+
+test-unit-integration: test
 
 clean:
 	@echo "Limpando arquivos de cache (.terraform), locks e estados..."
